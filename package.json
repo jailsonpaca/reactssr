@@ -1,0 +1,219 @@
+{
+  "name": "fabianocorrea",
+  "version": "1.0.0",
+  "description": "Site do Psicólogo Fabiano Correa",
+  "private": true,
+  "main": "src/index.js",
+  "dependencies": {
+    "@babel/core": "7.9.0",
+    "@material-ui/core": "4.10.0",
+    "@material-ui/icons": "4.9.1",
+    "@svgr/webpack": "4.3.3",
+    "@typescript-eslint/eslint-plugin": "^2.10.0",
+    "@typescript-eslint/parser": "^2.10.0",
+    "camelcase": "^5.3.1",
+    "case-sensitive-paths-webpack-plugin": "2.3.0",
+    "classnames": "2.2.6",
+    "css-loader": "3.4.2",
+    "dotenv": "8.2.0",
+    "dotenv-expand": "5.1.0",
+    "eslint": "^6.6.0",
+    "eslint-config-react-app": "^5.2.1",
+    "eslint-loader": "3.0.3",
+    "eslint-plugin-flowtype": "4.6.0",
+    "eslint-plugin-import": "2.20.1",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-react": "7.19.0",
+    "eslint-plugin-react-hooks": "^1.6.1",
+    "file-loader": "4.3.0",
+    "firebase": "^7.14.2",
+    "firebase-admin": "^8.11.0",
+    "fs-extra": "^8.1.0",
+    "history": "4.10.1",
+    "html-webpack-plugin": "4.0.0-beta.11",
+    "identity-obj-proxy": "3.0.0",
+    "jest": "24.9.0",
+    "jest-environment-jsdom-fourteen": "1.0.1",
+    "jest-resolve": "24.9.0",
+    "jest-watch-typeahead": "0.4.2",
+    "mini-css-extract-plugin": "0.9.0",
+    "moment": "2.26.0",
+    "node-sass": "4.14.1",
+    "nouislider": "14.5.0",
+    "optimize-css-assets-webpack-plugin": "5.0.3",
+    "pnp-webpack-plugin": "1.6.4",
+    "postcss-flexbugs-fixes": "4.1.0",
+    "postcss-loader": "3.0.0",
+    "postcss-normalize": "8.0.1",
+    "postcss-preset-env": "6.7.0",
+    "postcss-safe-parser": "4.0.1",
+    "prop-types": "15.7.2",
+    "react": "16.13.1",
+    "react-app-polyfill": "^1.0.6",
+    "react-datetime": "2.16.3",
+    "react-dev-utils": "^10.2.1",
+    "react-dom": "^16.13.1",
+    "react-router-dom": "5.2.0",
+    "react-slick": "0.26.1",
+    "react-swipeable-views": "0.13.9",
+    "resolve": "1.15.0",
+    "resolve-url-loader": "3.1.1",
+    "sass-loader": "8.0.2",
+    "semver": "6.3.0",
+    "style-loader": "0.23.1",
+    "terser-webpack-plugin": "2.3.5",
+    "ts-pnp": "1.1.6",
+    "url-loader": "2.3.0",
+    "webpack": "4.42.0",
+    "webpack-dev-server": "3.10.3",
+    "webpack-manifest-plugin": "2.2.0",
+    "workbox-webpack-plugin": "4.3.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "7.10.1",
+    "@babel/plugin-proposal-class-properties": "7.10.1",
+    "@babel/plugin-transform-runtime": "^7.10.3",
+    "@babel/preset-env": "7.10.1",
+    "@babel/preset-react": "7.10.1",
+    "@firebase/app": "^0.6.2",
+    "babel-eslint": "10.1.0",
+    "babel-jest": "^24.9.0",
+    "babel-loader": "8.1.0",
+    "babel-plugin-module-resolver": "^4.0.0",
+    "babel-plugin-named-asset-import": "^0.3.6",
+    "babel-plugin-transform-assets": "^1.0.2",
+    "babel-preset-react-app": "^9.1.2",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-config-standard-react": "^9.2.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-import": "^2.21.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.20.0",
+    "eslint-plugin-standard": "^4.0.1",
+    "firebase-functions": "^3.6.1",
+    "firebase-tools": "^8.1.1",
+    "gulp": "4.0.2",
+    "gulp-concat-css": "^3.1.0",
+    "postcss-cli": "^7.1.1",
+    "webpack-cli": "^3.3.12"
+  },
+  "optionalDependencies": {
+    "typescript": "3.9.3"
+  },
+  "scripts": {
+    "start": "npm run minifyall && node restartHTML.js && node scripts/start.js",
+    "buildadmin": "npm run pack --prefix ../mainAdmin",
+    "build": "node restartHTML.js && npm run buildadmin && node scripts/build.js && rm -rf public/** && mv build/** public && rm -rf build && mv public/index.html functions",
+    "testbabel": "cd functions/src && node index.js",
+    "test": "node scripts/test.js --env=jsdom",
+    "lint:check": "eslint . --ext=js,jsx;  exit 0",
+    "lint:fix": "eslint . --ext=js,jsx --fix;  exit 0",
+    "install:clean": "rm -rf node_modules/ && rm -rf package-lock.json && npm install && npm start",
+    "build-package-css": "node-sass src/assets/scss/material-kit-react.scss functions/src/material-kit-react.css",
+    "build-package": "npm run build-package-css && cross-env NODE_ENV=production BABEL_ENV=production npx babel src --out-dir functions/src && cross-env NODE_ENV=production BABEL_ENV=production npx babel index.js -d functions",
+    "compile-sass": "node-sass src/assets/scss/material-kit-react.scss src/assets/css/material-kit-react.css",
+    "minify-sass": "node-sass src/assets/scss/material-kit-react.scss src/assets/css/material-kit-react.min.css --output-style compressed",
+    "minify-story": "node-sass src/assets/scss/story.scss src/assets/css/story.min.css --output-style compressed",
+    "minifyall": "npm run minify-sass && npm run minify-story && gulp default",
+    "map-sass": "node-sass src/assets/scss/material-kit-react.scss src/assets/css/material-kit-react.css --source-map true",
+    "pack": "npm run build && npm run build-package",
+    "watch": "firebase serve --only functions,hosting",
+    "serve": "npm run pack && npm run watch",
+    "deploy": "npm run pack && firebase deploy"
+  },
+  "homepage": "./",
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": []
+  },
+  "jest": {
+    "roots": [
+      "<rootDir>/src"
+    ],
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!src/**/*.d.ts"
+    ],
+    "setupFiles": [
+      "react-app-polyfill/jsdom"
+    ],
+    "setupFilesAfterEnv": [],
+    "testMatch": [
+      "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
+      "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}"
+    ],
+    "testEnvironment": "jest-environment-jsdom-fourteen",
+    "transform": {
+      "^.+\\.(js|jsx|ts|tsx)$": "<rootDir>/node_modules/babel-jest",
+      "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
+      "^(?!.*\\.(js|jsx|ts|tsx|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
+    },
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|ts|tsx)$",
+      "^.+\\.module\\.(css|sass|scss)$"
+    ],
+    "modulePaths": [
+      "C:\\Users\\jails\\Desktop\\Projects\\FABIANOCORREA\\mainBuild\\src"
+    ],
+    "moduleNameMapper": {
+      "^react-native$": "react-native-web",
+      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
+    },
+    "moduleFileExtensions": [
+      "web.js",
+      "js",
+      "web.ts",
+      "ts",
+      "web.tsx",
+      "tsx",
+      "json",
+      "web.jsx",
+      "jsx",
+      "node"
+    ],
+    "watchPlugins": [
+      "jest-watch-typeahead/filename",
+      "jest-watch-typeahead/testname"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "@babel/react",
+      "@babel/env"
+    ],
+    "plugins": [
+      "@babel/plugin-proposal-class-properties",
+      "@babel/plugin-transform-runtime",
+      [
+        "module-resolver",
+        {
+          "root": [
+            "./src"
+          ],
+          "extensions": [
+            ".js"
+          ]
+        }
+      ],
+      [
+        "transform-assets",
+        {
+          "extensions": [
+            "jpg",
+            "png",
+            "svg"
+          ],
+          "name": "./static/media/[name].[ext]"
+        }
+      ]
+    ]
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  }
+}
